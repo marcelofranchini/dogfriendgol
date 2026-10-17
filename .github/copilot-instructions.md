@@ -90,3 +90,19 @@ Spec Kit artifacts live under `.specify/` and `specs/`. Order:
 
 **constitution** (once) → **specify** → (clarify) → **plan** → **tasks** →
 (analyze/checklist) → **implement** → **converge** (repeat until converged).
+
+## Execution rule (determined): Spec Kit + Superpowers
+
+When running `/speckit-implement`, Superpowers MUST be used to assist. This is a
+fixed rule, not optional.
+
+- Spec Kit defines **what** to build (`tasks.md`); Superpowers defines **how**.
+- `/speckit-implement` does NOT invoke Superpowers automatically. The agent MUST
+  read and apply the relevant skills explicitly during execution.
+
+| Moment | Superpowers skill to invoke |
+|---|---|
+| Before writing any test code | `test-driven-development` (RED → GREEN) |
+| A test fails / unexpected behavior | `systematic-debugging` |
+| Before declaring a task complete | `verification-before-completion` (run and show real output) |
+| At the end, before merge | `requesting-code-review` |

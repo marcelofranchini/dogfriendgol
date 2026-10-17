@@ -105,3 +105,19 @@ both OpenCode and VS Code Copilot Chat read natively (no symlinks). Use the
 `skill` tool to list and load them.
 
 The core workflow: **brainstorming → writing-plans → (subagent-driven-development | executing-plans) → test-driven-development → requesting-code-review → finishing-a-development-branch**.
+
+## Execution rule (determined): Spec Kit + Superpowers
+
+When running `/speckit.implement` (or `/speckit-implement`), Superpowers MUST be
+used to assist. This is a fixed rule, not optional.
+
+- Spec Kit defines **what** to build (`tasks.md`); Superpowers defines **how**.
+- `/speckit.implement` does NOT invoke Superpowers automatically. The agent MUST
+  read and apply the relevant skills explicitly during execution.
+
+| Moment | Superpowers skill to invoke |
+|---|---|
+| Before writing any test code | `test-driven-development` (RED → GREEN) |
+| A test fails / unexpected behavior | `systematic-debugging` |
+| Before declaring a task complete | `verification-before-completion` (run and show real output) |
+| At the end, before merge | `requesting-code-review` |

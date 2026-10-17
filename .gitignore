@@ -38,3 +38,31 @@ tmp/
 !.env.example
 *.pem
 *.key
+
+# --- Android keystores e chaves de assinatura (NUNCA versionar) ---
+*.keystore
+*.jks
+*.p12
+*.pfx
+*.pepk
+
+# --- Godot: conteudo privado do projeto ---
+# Fotos pessoais e referencias privadas nao devem entrar no Git.
+dog-friend-gol/assets/private/
+
+# --- Godot: artefatos de exportacao (build output, reproduzivel) ---
+*.apk
+*.aab
+*.pck
+*.wasm
+dog-friend-gol/build/
+dog-friend-gol/export/
+
+# NOTA (Constituicao, Artigo XII.3): `export_presets.cfg` NAO e ignorado de
+# proposito — ele e necessario para reproduzir a exportacao (CA-11). Ele DEVE
+# ser versionado com os campos de senha VAZIOS:
+#   keystore/debug_password=""
+#   keystore/release_password=""
+# As senhas reais vem de variavel de ambiente ou entrada manual no momento da
+# exportacao. Nunca grave uma senha nesse arquivo.
+
