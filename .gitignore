@@ -1,0 +1,34 @@
+# --- OS / Editor ---
+.DS_Store
+Thumbs.db
+*.swp
+*~
+
+# --- Node ---
+node_modules/
+npm-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- Build output ---
+dist/
+build/
+out/
+
+# --- Logs / temp ---
+*.log
+tmp/
+.cache/
+
+# --- Secrets (never commit) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
