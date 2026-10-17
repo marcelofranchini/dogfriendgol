@@ -10,6 +10,12 @@ npm-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
+# --- OpenCode local install (per-machine) ---
+.opencode/node_modules/
+.opencode/package.json
+.opencode/package-lock.json
+.opencode/bun.lock
+
 # --- Python ---
 __pycache__/
 *.py[cod]

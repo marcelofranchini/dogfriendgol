@@ -71,7 +71,7 @@ User instructions (AGENTS.md, CLAUDE.md, GEMINI.md, direct requests) take preced
 
 ## Available skills
 
-**Superpowers** (`.github/skills/`) — invoke by name or via the `/` menu:
+**Superpowers** (`.agents/skills/`) — invoke by name or via the `/` menu:
 
 - **Process**: `brainstorming`, `writing-plans`, `executing-plans`,
   `subagent-driven-development`, `dispatching-parallel-agents`,

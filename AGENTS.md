@@ -100,7 +100,8 @@ Artifacts live under `.specify/` and `specs/`.
 
 ## Working with Superpowers
 
-Superpowers skills are installed in `.github/skills/` and symlinked into
-`.opencode/skills/`. Use the `skill` tool to list and load them.
+Superpowers skills live in `.agents/skills/` — a cross-runtime location that
+both OpenCode and VS Code Copilot Chat read natively (no symlinks). Use the
+`skill` tool to list and load them.
 
 The core workflow: **brainstorming → writing-plans → (subagent-driven-development | executing-plans) → test-driven-development → requesting-code-review → finishing-a-development-branch**.
