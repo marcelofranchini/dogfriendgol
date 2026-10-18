@@ -9,6 +9,9 @@ const Z = ShotZone.Zone
 const R = ShotResult.Result
 const P = MatchPhase.Phase
 
+# Largura de design (retrato 720x1280)
+const W := 720.0
+
 # Cores (paleta infantil, verde grama)
 const C_GRASS := Color(0.16, 0.55, 0.24)
 const C_GRASS_DARK := Color(0.10, 0.40, 0.17)
@@ -52,7 +55,7 @@ func _bg(parent: Control, texture_path: String) -> TextureRect:
 	var bg: TextureRect = TextureRect.new()
 	bg.texture = load(texture_path)
 	bg.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	bg.stretch_mode = TextureRect.STRETCH_SCALE
+	bg.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_COVERED
 	bg.set_anchors_preset(Control.PRESET_FULL_RECT)
 	bg.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	parent.add_child(bg)
@@ -74,16 +77,17 @@ func _label(parent: Control, text: String, size: int, color: Color, y: float, h:
 	l.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.6))
 	l.add_theme_constant_override("outline_size", 6)
 	l.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	l.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	l.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	l.position = Vector2(0, y)
-	l.size = Vector2(1280, h)
+	l.position = Vector2(-W / 2.0, y)
+	l.size = Vector2(W, h)
 	parent.add_child(l)
 	return l
 
-func _button(parent: Control, text: String, y: float, w: float = 260, h: float = 70, color: Color = C_GOLD) -> Button:
+func _button(parent: Control, text: String, y: float, w: float = 300, h: float = 80, color: Color = C_GOLD) -> Button:
 	var b: Button = Button.new()
 	b.text = text
-	b.add_theme_font_size_override("font_size", 26)
+	b.add_theme_font_size_override("font_size", 28)
 	b.add_theme_color_override("font_color", Color(0.1, 0.1, 0.1))
 	b.add_theme_color_override("font_hover_color", Color(0.1, 0.1, 0.1))
 	b.add_theme_stylebox_override("normal", _stylebox(color))
@@ -107,7 +111,18 @@ func _stylebox(color: Color) -> StyleBoxFlat:
 	sb.content_margin_top = 10
 	sb.content_margin_bottom = 10
 	return sb
-
+# Imagem centralizada, mantendo proporção (não distorce).
+func _art(parent: Control, texture_path: String, y: float, w: float, h: float) -> TextureRect:
+	var t: TextureRect = TextureRect.new()
+	t.texture = load(texture_path)
+	t.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+	t.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+	t.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	t.position = Vector2(-w / 2.0, y)
+	t.size = Vector2(w, h)
+	t.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	parent.add_child(t)
+	return t
 # ---------------------------------------------------------------------------
 # Menu
 # ---------------------------------------------------------------------------
@@ -119,21 +134,13 @@ func _build_menu() -> void:
 	_bg(menu_root, "res://assets/references/bg_stadium_crowd.jpg")
 	_overlay(menu_root, Color(0, 0, 0, 0.35))
 
-	_label(menu_root, "Aventuras na Grama!", 56, C_GOLD, 60, 80)
-	_label(menu_root, "Disputa de pênaltis entre a criança e a Branquinha", 22, C_WHITE, 150, 40)
+	_label(menu_root, "Aventuras na Grama!", 52, C_GOLD, 70, 80)
+	_label(menu_root, "Disputa de pênaltis entre a criança e a Branquinha", 22, C_WHITE, 160, 60)
 
-	# Ilustração dos protagonistas (referência).
-	var art: TextureRect = TextureRect.new()
-	art.texture = load("res://assets/references/concepts_boy_and_dog.jpg")
-	art.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
-	art.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-	art.set_anchors_preset(Control.PRESET_CENTER)
-	art.position = Vector2(-180, -40)
-	art.size = Vector2(360, 360)
-	art.mouse_filter = Control.MOUSE_FILTER_IGNORE
-	menu_root.add_child(art)
+	# Ilustração dos protagonistas (retrato 768x1024 → proporção 0.75).
+	_art(menu_root, "res://assets/references/concepts_boy_and_dog.jpg", 260, 360, 480)
 
-	var play: Button = _button(menu_root, "⚽ Jogar", 520, 280, 80, C_GOLD)
+	var play: Button = _button(menu_root, "⚽ Jogar", 820, 320, 90, C_GOLD)
 	play.pressed.connect(_on_play_pressed)
 
 # ---------------------------------------------------------------------------
@@ -148,33 +155,33 @@ func _build_registration() -> void:
 	_bg(reg_root, "res://assets/references/bg_stadium_crowd.jpg")
 	_overlay(reg_root, Color(0, 0, 0, 0.55))
 
-	_label(reg_root, "Quem vai jogar?", 40, C_GOLD, 50, 60)
+	_label(reg_root, "Quem vai jogar?", 44, C_GOLD, 60, 70)
 
-	child_name_edit = _add_field(reg_root, "Nome da criança", 150)
-	child_age_edit = _add_field(reg_root, "Idade da criança", 230)
-	dog_name_edit = _add_field(reg_root, "Nome do cachorro", 310)
-	dog_age_edit = _add_field(reg_root, "Idade do cachorro", 390)
+	child_name_edit = _add_field(reg_root, "Nome da criança", 180)
+	child_age_edit = _add_field(reg_root, "Idade da criança", 300)
+	dog_name_edit = _add_field(reg_root, "Nome do cachorro", 420)
+	dog_age_edit = _add_field(reg_root, "Idade do cachorro", 540)
 
-	var start: Button = _button(reg_root, "Começar partida", 500, 280, 70, C_GOLD)
+	var start: Button = _button(reg_root, "Começar partida", 700, 320, 80, C_GOLD)
 	start.pressed.connect(_on_start_pressed)
 
 func _add_field(parent: Control, label_text: String, y: float) -> LineEdit:
 	var lbl: Label = Label.new()
 	lbl.text = label_text
-	lbl.add_theme_font_size_override("font_size", 20)
+	lbl.add_theme_font_size_override("font_size", 22)
 	lbl.add_theme_color_override("font_color", C_WHITE)
 	lbl.add_theme_color_override("font_outline_color", Color(0, 0, 0, 0.6))
 	lbl.add_theme_constant_override("outline_size", 4)
 	lbl.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	lbl.position = Vector2(-300, y)
-	lbl.size = Vector2(600, 28)
+	lbl.position = Vector2(-280, y)
+	lbl.size = Vector2(560, 30)
 	parent.add_child(lbl)
 
 	var edit: LineEdit = LineEdit.new()
-	edit.add_theme_font_size_override("font_size", 20)
+	edit.add_theme_font_size_override("font_size", 22)
 	edit.set_anchors_preset(Control.PRESET_CENTER_TOP)
-	edit.position = Vector2(-300, y + 32)
-	edit.size = Vector2(600, 42)
+	edit.position = Vector2(-280, y + 36)
+	edit.size = Vector2(560, 50)
 	parent.add_child(edit)
 	return edit
 
@@ -190,17 +197,17 @@ func _build_match() -> void:
 	_bg(match_root, "res://assets/references/bg_stadium_crowd.jpg")
 	_overlay(match_root, Color(0, 0, 0, 0.45))
 
-	score_label = _label(match_root, "", 44, C_GOLD, 30, 60)
-	turn_label = _label(match_root, "", 24, C_WHITE, 100, 40)
+	score_label = _label(match_root, "", 40, C_GOLD, 40, 60)
+	turn_label = _label(match_root, "", 24, C_WHITE, 110, 40)
 
-	# Grade 3x3 de zonas.
+	# Grade 3x3 de zonas (3 colunas de 200px + espaçamento).
 	var grid: GridContainer = GridContainer.new()
 	grid.columns = 3
 	grid.add_theme_constant_override("h_separation", 12)
 	grid.add_theme_constant_override("v_separation", 12)
-	grid.set_anchors_preset(Control.PRESET_CENTER)
-	grid.position = Vector2(-330, -40)
-	grid.size = Vector2(660, 330)
+	grid.set_anchors_preset(Control.PRESET_CENTER_TOP)
+	grid.position = Vector2(-312, 200)
+	grid.size = Vector2(624, 360)
 	match_root.add_child(grid)
 
 	var zone_names: Array = [
@@ -217,12 +224,12 @@ func _build_match() -> void:
 		b.add_theme_stylebox_override("normal", _stylebox(Color(1, 1, 1, 0.85)))
 		b.add_theme_stylebox_override("hover", _stylebox(C_GOLD))
 		b.add_theme_stylebox_override("pressed", _stylebox(C_GOLD.darkened(0.2)))
-		b.custom_minimum_size = Vector2(200, 100)
+		b.custom_minimum_size = Vector2(200, 110)
 		b.pressed.connect(_on_zone_pressed.bind(i))
 		grid.add_child(b)
 		zone_buttons.append(b)
 
-	result_label = _label(match_root, "", 30, C_WHITE, 470, 50)
+	result_label = _label(match_root, "", 30, C_WHITE, 620, 60)
 
 # ---------------------------------------------------------------------------
 # Fim
@@ -236,10 +243,13 @@ func _build_end() -> void:
 	_bg(end_root, "res://assets/references/bg_stadium_crowd.jpg")
 	_overlay(end_root, Color(0, 0, 0, 0.5))
 
-	var title: Label = _label(end_root, "", 50, C_GOLD, 200, 90)
+	var title: Label = _label(end_root, "", 48, C_GOLD, 80, 90)
 	title.name = "EndTitle"
 
-	var again: Button = _button(end_root, "Jogar de novo", 360, 280, 70, C_GOLD)
+	# Arte da comemoração/abraço (retrato 768x1024).
+	_art(end_root, "res://assets/references/ui_main_menu.jpg", 220, 360, 480)
+
+	var again: Button = _button(end_root, "Jogar de novo", 820, 320, 80, C_GOLD)
 	again.pressed.connect(_on_again_pressed)
 
 # ---------------------------------------------------------------------------
