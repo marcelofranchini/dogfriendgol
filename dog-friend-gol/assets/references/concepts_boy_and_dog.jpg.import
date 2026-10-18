@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://d0yyfiwnhx1ns"
-valid=false
+uid="uid://dxsyf8xjybqqo"
+path="res://.godot/imported/concepts_boy_and_dog.jpg-9281b2013149f0b06489777eb2a34b07.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/references/ui_main_menu.png"
+source_file="res://assets/references/concepts_boy_and_dog.jpg"
+dest_files=["res://.godot/imported/concepts_boy_and_dog.jpg-9281b2013149f0b06489777eb2a34b07.ctex"]
 
 [params]
 

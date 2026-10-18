@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bifcgvfp0syht"
-valid=false
+uid="uid://ernvmttjtphu"
+path="res://.godot/imported/ui_main_menu.jpg-8e0ee724a0a58e4d88680775f1b13030.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/references/bg_stadium_crowd.png"
+source_file="res://assets/references/ui_main_menu.jpg"
+dest_files=["res://.godot/imported/ui_main_menu.jpg-8e0ee724a0a58e4d88680775f1b13030.ctex"]
 
 [params]
 

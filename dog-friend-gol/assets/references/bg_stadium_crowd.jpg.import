@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dxxwvxmfwcp76"
-valid=false
+uid="uid://c3b3hiaish0ai"
+path="res://.godot/imported/bg_stadium_crowd.jpg-4f4237bffbbd4e3bd83ccd7446b1ac09.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/references/sprites_kick_and_defense.png"
+source_file="res://assets/references/bg_stadium_crowd.jpg"
+dest_files=["res://.godot/imported/bg_stadium_crowd.jpg-4f4237bffbbd4e3bd83ccd7446b1ac09.ctex"]
 
 [params]
 

@@ -2,12 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c4djpcp6bw86q"
-valid=false
+uid="uid://vk6h8e1hxccd"
+path="res://.godot/imported/sprites_kick_and_defense.jpg-5db3ac278454f69e6ed48c88f7a6fc5e.ctex"
+metadata={
+"vram_texture": false
+}
 
 [deps]
 
-source_file="res://assets/references/concepts_boy_and_dog.png"
+source_file="res://assets/references/sprites_kick_and_defense.jpg"
+dest_files=["res://.godot/imported/sprites_kick_and_defense.jpg-5db3ac278454f69e6ed48c88f7a6fc5e.ctex"]
 
 [params]
 
